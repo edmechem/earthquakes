@@ -15,21 +15,13 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   <script src="/js/application.js"></script>
-      <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.784580, lng: -122.397437},
-          zoom: 8
-        });
-      }
-    </script>
-   <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_SECRET_KEY']%>&callback=initMap"
-    async defer></script>
-  <title></title>
-</head>
-<body>
- <%= yield %>
 
-</body>
-</html>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_SECRET_KEY']%>&callback=initMap"
+    async defer></script>
+    <title></title>
+  </head>
+  <body>
+   <%= yield %>
+
+ </body>
+ </html>
