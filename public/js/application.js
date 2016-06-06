@@ -200,6 +200,55 @@ $(document).ready(function(){
 
 	});
 
+	$("#all-day").on("submit", function(event){
+
+		event.preventDefault();
+
+		$.ajax({
+			url:'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',
+			type: 'GET',
+			context: this
+		}).done(function(data) {
+
+
+			var earthquakePositions = [];
+			var earthquakes = data.features
+			earthquakes.forEach(function(earthquake) {
+				earthquakePositions.push(earthquake.geometry.coordinates);
+			});
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: myLatLng,
+				zoom: 1
+			});
+			var bounds = new google.maps.LatLngBounds();
+
+			for (i = 0; i < earthquakes.length; i++) {
+				var quake = earthquakes[i];
+				var quakePosition = earthquakePositions[i];
+				var quakeLng = quakePosition[0];
+				var quakeLat = quakePosition[1];
+				var myLatLng = {lat: quakeLat, lng: quakeLng};
+				// bounds.extend(myLatLng);
+				marker = new google.maps.Marker({
+					position: myLatLng,
+					map: map,
+					animation: google.maps.Animation.DROP,
+					title: 'Hello World!'
+				});
+				$('#quake-info').empty();
+
+
+				map.fitBounds(bounds);
+				map.setZoom(2);
+				// var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+				// 	this.setZoom(3);
+				// 	google.maps.event.removeListener(boundsListener);
+				// });    
+
+			};
+		});
+	});
+
 
 
 
