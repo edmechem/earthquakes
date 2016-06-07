@@ -59,8 +59,8 @@ $(document).ready(function(){
         				infoWindow.open(map, marker);
         			}
         		})(marker, i));
-        		$('#quake-info').empty();
-        		$('#quake-info').append(quake.properties.place);
+        		$('.well').empty();
+        		$('.well').append(quake.properties.place);
 
         	});
 
@@ -106,8 +106,8 @@ $(document).ready(function(){
 				animation: google.maps.Animation.DROP,
 				title: 'Hello World!'
 			});
-			$('#quake-info').empty();
-			$('#quake-info').append(quake.properties.place);
+			$('.well').empty();
+			$('.well').append(quake.properties.place);
 
 		});
 
@@ -153,8 +153,8 @@ $(document).ready(function(){
 				animation: google.maps.Animation.DROP,
 				title: 'Hello World!'
 			});
-			$('#quake-info').empty();
-			$('#quake-info').append(quake.properties.place);
+			$('.well').empty();
+			$('.well').append(quake.properties.place);
 
 		});
 
@@ -200,8 +200,8 @@ $(document).ready(function(){
 				animation: google.maps.Animation.DROP,
 				title: 'Hello World!'
 			});
-			$('#quake-info').empty();
-			$('#quake-info').append(quake.properties.place);
+			$('.well').empty();
+			$('.well').append(quake.properties.place);
 
 		});
 
@@ -228,7 +228,7 @@ $(document).ready(function(){
         			zoom: 1
         		});
         		var bounds = new google.maps.LatLngBounds();
-        		$('#quake-info').empty();
+        		$('.well').empty();
 
         		var infoWindow = new google.maps.InfoWindow(), marker, i;
 
