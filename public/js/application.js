@@ -1,6 +1,8 @@
 var map;
 var myLatLng = {lat: 37.784580, lng: -122.397437};
 var marker;
+var images = ['/Markers/paleblue_MarkerA.png', '/Markers/blue_MarkerA.png', '/Markers/pink_MarkerA.png', '/Markers/purple_MarkerA.png', '/Markers/green_MarkerA.png', '/Markers/darkgreen_MarkerA.png', '/Markers/yellow_MarkerA.png', '/Markers/orange_MarkerA.png', '/Markers/red_MarkerA.png'];
+
 function initMap() {
 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -66,13 +68,27 @@ function findQuakes(location) {
      var myLatLng = {lat: quakeLat, lng: quakeLng};
      var title = quake.properties.place;
      var magnitude = '?'
+     var image = null;
+     if (quake.properties.mag === null) {
+      image = images[0]
+    } else { magnitude = quake.properties.mag.toString().substring(0,1);}
+
+    if (magnitude == 0 || magnitude === '-') { image = images[0]};
+    if (magnitude == 1 ) { image = images[1]};
+    if (magnitude == 2 ) { image = images[2]};
+    if (magnitude == 3 ) { image = images[3]};
+    if (magnitude == 4 ) { image = images[4]};
+    if (magnitude == 5) { image = images[5]};
+    if (magnitude == 6) { image = images[6]};
+    if (magnitude > 6) { image = images[7]};
 
         // bounds.extend(myLatLng);
         marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
           animation: google.maps.Animation.DROP,
-          title: title
+          title: title,
+          icon: image
         });
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
@@ -92,7 +108,7 @@ function findQuakes(location) {
 
 $(document).ready(function(){
 
-  var images = ['/Markers/paleblue_MarkerA.png', '/Markers/blue_MarkerA.png', '/Markers/pink_MarkerA.png', '/Markers/yellow_MarkerA.png', '/Markers/orange_MarkerA.png', '/Markers/red_MarkerA.png', '/Markers/purple_MarkerA.png']
+  // var images = ['/Markers/paleblue_MarkerA.png', '/Markers/blue_MarkerA.png', '/Markers/purple_MarkerA.png', '/Markers/pink_MarkerA.png', '/Markers/green_MarkerA.png', '/Markers/darkgreen_MarkerA.png', '/Markers/yellow_MarkerA.png', '/Markers/orange_MarkerA.png', '/Markers/red_MarkerA.png'];
   $("#most-recent").on("click", function(event){
 
    event.preventDefault();
@@ -119,11 +135,15 @@ $(document).ready(function(){
     var myLatLng = {lat: quakeLat, lng: quakeLng};
     var magnitude = quake.properties.mag.toString().substring(0,1);
     var image = null;
-    if (magnitude <= 2) { image = images[0]};
-    if (magnitude > 2 && magnitude <= 4) { image = images[1]};
-    if (magnitude > 4 && magnitude <= 6) { image = images[2]};
-    if (magnitude > 6 && magnitude <= 8) { image = images[3]};
-    if (magnitude > 8) { image = images[4]};
+    if (magnitude == 0 || magnitude === '-') { image = images[0]};
+    if (magnitude == 1 ) { image = images[1]};
+    if (magnitude == 2 ) { image = images[2]};
+    if (magnitude == 3 ) { image = images[3]};
+    if (magnitude == 4 ) { image = images[4]};
+    if (magnitude == 5) { image = images[5]};
+    if (magnitude == 6) { image = images[6]};
+    if (magnitude > 6) { image = images[7]};
+
 
 
 
@@ -244,17 +264,18 @@ $(document).ready(function(){
      var title = quake.properties.place;
      var magnitude = '?'
      var image = null;
-     if (quake.properties.mag !== null) {
-       var magnitude = quake.properties.mag.toString().substring(0,1);
+     if (quake.properties.mag === null) {
+      image = images[0]
+    } else { magnitude = quake.properties.mag.toString().substring(0,1);}
 
-     } else { image = images[6]}
-
-     if (magnitude <= 0 || magnitude === '-') { image = images[0]};
-     if (magnitude <= 2 && magnitude > 0) { image = images[1]};
-     if (magnitude > 2 && magnitude <= 4) { image = images[2]};
-     if (magnitude > 4 && magnitude <= 6) { image = images[3]};
-     if (magnitude > 6 && magnitude <= 8) { image = images[4]};
-     if (magnitude > 8) { image = images[5]};
+    if (magnitude == 0 || magnitude === '-') { image = images[0]};
+    if (magnitude == 1 ) { image = images[1]};
+    if (magnitude == 2 ) { image = images[2]};
+    if (magnitude == 3 ) { image = images[3]};
+    if (magnitude == 4 ) { image = images[4]};
+    if (magnitude == 5) { image = images[5]};
+    if (magnitude == 6) { image = images[6]};
+    if (magnitude > 6) { image = images[7]};
 
 
         // bounds.extend(myLatLng);
