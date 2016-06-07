@@ -6,7 +6,7 @@ var styleArray = [
 {
   featureType: "all",
   stylers: [
-  { saturation: -60 }
+  { saturation: -70 }
   ]
 },{
   featureType: "road.arterial",
