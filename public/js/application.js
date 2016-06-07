@@ -18,7 +18,7 @@ function initMap() {
 }
 
 $(document).ready(function(){   
-        $("#most-recent").on("submit", function(event){
+        $("#most-recent").on("click", function(event){
 
         	event.preventDefault();
 
@@ -66,7 +66,7 @@ $(document).ready(function(){
 
         });
 
-        $("#biggest-month").on("submit", function(event){
+        $("#biggest-month").on("click", function(event){
 
         	event.preventDefault();
 		// var endTimeSeconds = Date.now();
@@ -113,7 +113,7 @@ $(document).ready(function(){
 
 	});
 
-        $("#biggest-week").on("submit", function(event){
+        $("#biggest-week").on("click", function(event){
 
         	event.preventDefault();
 		// var endTimeSeconds = Date.now();
@@ -160,7 +160,7 @@ $(document).ready(function(){
 
 	});
 
-        $("#biggest-day").on("submit", function(event){
+        $("#biggest-day").on("click", function(event){
 
         	event.preventDefault();
 		// var endTimeSeconds = Date.now();
@@ -207,7 +207,7 @@ $(document).ready(function(){
 
 	});
 
-        $("#all-day").on("submit", function(event){
+        $("#all-day").on("click", function(event){
 
         	event.preventDefault();
 
