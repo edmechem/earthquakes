@@ -28,3 +28,16 @@
 	margin-left:40% ;
 	text-align:center;
 }
+
+#map-key {
+  position: absolute;
+  left: 0;
+
+}
+
+.key-text {
+display: inline-block;
+}
+ .key-image {
+display: inline-block;
+ }

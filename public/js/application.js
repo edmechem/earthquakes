@@ -2,13 +2,34 @@ var map;
 var myLatLng = {lat: 37.784580, lng: -122.397437};
 var marker;
 var images = ['/Markers/paleblue_MarkerA.png', '/Markers/blue_MarkerA.png', '/Markers/pink_MarkerA.png', '/Markers/purple_MarkerA.png', '/Markers/green_MarkerA.png', '/Markers/darkgreen_MarkerA.png', '/Markers/yellow_MarkerA.png', '/Markers/orange_MarkerA.png', '/Markers/red_MarkerA.png'];
-
+var styleArray = [
+{
+  featureType: "all",
+  stylers: [
+  { saturation: -60 }
+  ]
+},{
+  featureType: "road.arterial",
+  elementType: "geometry",
+  stylers: [
+  { hue: "#00ffee" },
+  { saturation: 80 }
+  ]
+},{
+  featureType: "poi.business",
+  elementType: "labels",
+  stylers: [
+  { visibility: "off" }
+  ]
+}
+];
 function initMap() {
 
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng,
-		zoom: 10
-	});
+		zoom: 10,
+    styles: styleArray
+  });
 
 	marker = new google.maps.Marker({
 		position: myLatLng,
@@ -28,11 +49,11 @@ function initMap() {
 
 function findQuakes(location) {
   var latitude = location['lat'];
-  var minLat = latitude - 2;
-  var maxLat = latitude + 2;
+  var minLat = Math.max(latitude - 2, -90);
+  var maxLat = Math.min(latitude + 2, 90);
   var longitude = location['lng'];
-  var minLng = longitude - 2;
-  var maxLng = longitude + 2;
+  var minLng = Math.max(longitude - 2, -180);
+  var maxLng = Math.min(longitude + 2, 180);
   var endTime = new Date();
   var startTime = new Date();
   startTime.setDate(startTime.getDate()-30);
@@ -58,29 +79,35 @@ function findQuakes(location) {
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     map = new google.maps.Map(document.getElementById('map'), {
      center: myLatLng,
-     zoom: 1
+     zoom: 1,
+     styles: styleArray
    });
-    for (i = 0; i < earthquakes.length; i++) {
-     var quake = earthquakes[i];
-     var quakePosition = earthquakePositions[i];
-     var quakeLng = quakePosition[0];
-     var quakeLat = quakePosition[1];
-     var myLatLng = {lat: quakeLat, lng: quakeLng};
-     var title = quake.properties.place;
-     var magnitude = '?'
-     var image = null;
-     if (quake.properties.mag === null) {
-      image = images[0]
-    } else { magnitude = quake.properties.mag.toString().substring(0,1);}
+    if (earthquakes.length == 0) {
+      initMap();
+      $('.well').empty();
+      $('.well').append('No quakes found nearby within the past 30 days.');
+    } else {
+      for (i = 0; i < earthquakes.length; i++) {
+       var quake = earthquakes[i];
+       var quakePosition = earthquakePositions[i];
+       var quakeLng = quakePosition[0];
+       var quakeLat = quakePosition[1];
+       var myLatLng = {lat: quakeLat, lng: quakeLng};
+       var title = quake.properties.place;
+       var magnitude = '?'
+       var image = null;
+       if (quake.properties.mag === null) {
+        image = images[8]
+      } else { magnitude = quake.properties.mag.toString().substring(0,1);}
 
-    if (magnitude == 0 || magnitude === '-') { image = images[0]};
-    if (magnitude == 1 ) { image = images[1]};
-    if (magnitude == 2 ) { image = images[2]};
-    if (magnitude == 3 ) { image = images[3]};
-    if (magnitude == 4 ) { image = images[4]};
-    if (magnitude == 5) { image = images[5]};
-    if (magnitude == 6) { image = images[6]};
-    if (magnitude > 6) { image = images[7]};
+      if (magnitude == 0 || magnitude === '-') { image = images[0]};
+      if (magnitude == 1 ) { image = images[1]};
+      if (magnitude == 2 ) { image = images[2]};
+      if (magnitude == 3 ) { image = images[3]};
+      if (magnitude == 4 ) { image = images[4]};
+      if (magnitude == 5) { image = images[5]};
+      if (magnitude == 6) { image = images[6]};
+      if (magnitude > 6) { image = images[7]};
 
         // bounds.extend(myLatLng);
         marker = new google.maps.Marker({
@@ -100,9 +127,9 @@ function findQuakes(location) {
         if (i === earthquakes.length-1) { map.setCenter(myLatLng)}
       };
 
-
-    map.setZoom(6);
-  });
+  }
+  map.setZoom(6);
+});
 
 }
 
@@ -149,7 +176,8 @@ $(document).ready(function(){
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 5
+      zoom: 5,
+      styles: styleArray
     });
 
     marker = new google.maps.Marker({
@@ -248,7 +276,8 @@ $(document).ready(function(){
    });
     map = new google.maps.Map(document.getElementById('map'), {
      center: myLatLng,
-     zoom: 1
+     zoom: 1,
+     styles: styleArray
    });
     var bounds = new google.maps.LatLngBounds();
     $('.well').empty();
